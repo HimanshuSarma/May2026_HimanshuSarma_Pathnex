@@ -1,6 +1,31 @@
 DAY1 mini project: 1-mini-project
 
 project description:
+  i have 1 vpc(10.0.0.0/16)
+  3 subnets:
+    1 public(10.0.0.0/24) -> 1 instance in this subnet
+    2 private: 10.0.1.0/24 and 10.0.2.0/24 -> 1 instance in each of these subnets
+  
+  so, i have total 3 intances in 3 subnets.
+
+  i also have an internal Load Balancer that is sending traffic to a target group.
+  the TARGET GROUP is the collection of the instances in the private subnets.
+
+  the idea is i have the frontend(react app) in the public subnet.
+  the nodejs server and db(postgres) in the public subnets
+
+  the private subnets are protected by NACL rules.
+
+  the frontend can only send traffic to the ec2 instances in the private subnets on port 8000(where nodejs server is running)
+  
+  the db ports(like 3306/5432) or maybe redis(6379) are not reachable from outside the private subnet.
+
+  So, when the user hits an api request from the browser:
+
+  Browser sends request to http://[public-ip]:8000 -> The public ip acts like a reverse proxy and sends the request to the internal LB
+  internal LB -> sends the request to the target group listening on port 8000 -> the request is received by the nodejs server on the instances
+  in the private subnet
+
   # High-Availability Multi-Tier VPC Architecture
 
   ## Architecture Diagram
