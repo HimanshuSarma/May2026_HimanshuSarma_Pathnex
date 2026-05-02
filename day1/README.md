@@ -39,11 +39,15 @@ project description:
       App1 -.-> DB
       App2 -.-> DB
 
-      %% Styling
-      style Bastion fill:#f9f,stroke:#333,stroke-width:2px
-      style ILB fill:#bbf,stroke:#333,stroke-width:2px
-      style App1 fill:#bbf,stroke:#333,stroke-width:2px
-      style App2 fill:#bbf,stroke:#333,stroke-width:2px
-      style DB fill:#fdb,stroke:#333,stroke-width:2px
-      style Public_Subnet fill:#fff,stroke:#333,stroke-dasharray: 5 5
-      style Private_Subnets fill:#fff,stroke:#333,stroke-dasharray: 5 5
+      %% Styling with Forced Black Text
+      style Bastion fill:#f9f,stroke:#333,stroke-width:2px,color:#000
+      style ILB fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+      style App1 fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+      style App2 fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+      style DB fill:#fdb,stroke:#333,stroke-width:2px,color:#000
+      
+      %% Label and Subgraph Styling
+      style User color:#fff
+      style Public_Subnet fill:#fff,stroke:#333,stroke-dasharray: 5 5,color:#000
+      style Private_Subnets fill:#fff,stroke:#333,stroke-dasharray: 5 5,color:#000
+      style TG fill:#444,color:#fff
