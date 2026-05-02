@@ -1,0 +1,7 @@
+2 hours morning classes.
+2 hours evening classes.
+2 hours on studying the roadmap for devops(morning class)
+2 - 3 hours studying architecture/networking.
+6 hours implementing the mini project:
+  aws, terraform and ansible code.
+  testing/debugging and fixing issues
