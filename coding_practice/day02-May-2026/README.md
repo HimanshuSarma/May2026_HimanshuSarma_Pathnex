@@ -1,3 +1,6 @@
+## Architecture Diagram
+
+```mermaid
 graph TD
     subgraph "AWS Region (us-east-1)"
         subgraph "VPC-A (10.0.0.0/16)"
@@ -17,11 +20,11 @@ graph TD
         end
 
         %% Peering Connection
-        VPC_Peering{{"VPC Peering Connection<br>(vpc_a_to_b)"}}
-        VPC-A (10.0.0.0/16) <==> VPC_Peering
-        VPC_Peering <==> VPC-B (10.1.0.0/16)
+        VPC_Peering{{"VPC Peering Connection"}}
+        VPC-A <==> VPC_Peering
+        VPC_Peering <==> VPC-B
 
-        %% Routing Logic
-        RouteA[Route: 10.1.0.0/16 via PCX] --- VPC-A (10.0.0.0/16)
-        RouteB[Route: 10.0.0.0/16 via PCX] --- VPC-B (10.1.0.0/16)
+        %% Routing Notes
+        RouteA[Route: 10.1.0.0/16 via PCX] --- VPC-A
+        RouteB[Route: 10.0.0.0/16 via PCX] --- VPC-B
     end
