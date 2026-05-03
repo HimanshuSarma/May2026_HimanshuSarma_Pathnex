@@ -1,8 +1,27 @@
-VPC peering:
+graph TD
+    subgraph "AWS Region (us-east-1)"
+        subgraph "VPC-A (10.0.0.0/16)"
+            direction TB
+            PubSubA[Public Subnet A] --> IGWA[Internet Gateway A]
+            PrivSubA[Private Subnets A] --> NATA[NAT Gateway A]
+            InstanceA[VPC-A-Instance] --- PubSubA
+            SGA[Security Group: public_instance_sg] -.-> InstanceA
+        end
 
-The "Gotchas" (Critical Rules)
-There are two big rules you need to know before you start building:
+        subgraph "VPC-B (10.1.0.0/16)"
+            direction TB
+            PubSubB[Public Subnet B] --> IGWB[Internet Gateway B]
+            PrivSubB[Private Subnets B] --> NATB[NAT Gateway B]
+            InstanceB[VPC-B-Instance] --- PubSubB
+            SGB[Security Group: public_instance_sg] -.-> InstanceB
+        end
 
-No Overlapping CIDRs: You cannot peer two VPCs if they have the same or overlapping IP ranges (e.g., both are 10.0.0.0/16). The "bridge" wouldn't know which island a specific IP belongs to.
+        %% Peering Connection
+        VPC_Peering{{"VPC Peering Connection<br>(vpc_a_to_b)"}}
+        VPC-A (10.0.0.0/16) <==> VPC_Peering
+        VPC_Peering <==> VPC-B (10.1.0.0/16)
 
-No Transitive Peering: This is the most famous rule. If VPC A is peered with VPC B, and VPC B is peered with VPC C, VPC A cannot talk to VPC C through B. You would have to create a direct peer between A and C.
+        %% Routing Logic
+        RouteA[Route: 10.1.0.0/16 via PCX] --- VPC-A (10.0.0.0/16)
+        RouteB[Route: 10.0.0.0/16 via PCX] --- VPC-B (10.1.0.0/16)
+    end
