@@ -1,0 +1,4 @@
+2 hours morning classes.
+30 mins checking private ip ranges, subnet mask calculations, route tables
+2 hours studying vpc peering connections and transit gateways and how multi vpc k8s clusters can work with multiple VPCs.
+2 hours implementing the VPC peering connection with multiple VPCs and setting up the routing rules with terraform.
