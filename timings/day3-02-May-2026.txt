@@ -1,0 +1,9 @@
+5 hours:
+  1. studying transit gateways, vpc lattice, vpc private endpoint.
+  2. creating a mini project with 3 vpcs a, b and c.
+  3. connecting them with a transit gateway.
+  4. testing connection from one vpc to the other 2 vpcs.
+  5. debugging route table rules(understanding why the vpc router doesn't pick rules from the main vpc routing table if subnet routing table
+    is already defined)
+  6. learning about vpc lattice(why vpc lattice is used)
+  7. learning about vpc private endpoint(why vpc endpoints are used)
