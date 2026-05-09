@@ -1,0 +1,6 @@
+2 hours class.
+3 hours:
+  debugging the client vpn endpoint connection:
+    1. checking network ACLs, security groups and ENI security groups
+1.5 hours:
+  Revising git.

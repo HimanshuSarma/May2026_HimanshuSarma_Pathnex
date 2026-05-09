@@ -1,0 +1,10 @@
+2 hours: classes
+3-4 hours:
+  github refresher(continuing from day 5):
+    git rebase, 
+    git interactive rebase, 
+    git cherry-pick, 
+    git history(git rebase vs git merge)
+    git pull(git fetch + git merge)
+    branching strategies(trunk based, gitflow, github flow)
+    etc

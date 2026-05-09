@@ -1,0 +1,3 @@
+2 hours class.
+4 hours:
+  implementing a client vpn endpoint and connection with openvpn.
