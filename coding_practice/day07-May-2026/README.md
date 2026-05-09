@@ -1,46 +1,44 @@
 ## Networking flow
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#2b2b2b', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#f4f4f4'}}}%%
 graph TD
-    subgraph "The Global AWS Fabric (Underlay Network)"
+    subgraph "Global AWS Fabric (The Hidden Network)"
         direction TB
-        MappingService["<b>AWS Mapping Service</b><br/>(The Control Plane Brain)"]
-        PhysicalBackbone["High-Speed Physical Fiber & Switches"]
+        MappingService["<b>AWS Mapping Service</b><br/>The Control Plane 'Brain'"]
+        PhysicalBackbone["Physical Fiber Underlay"]
     end
 
-    subgraph "Physical Host Machine (Availability Zone A)"
+    subgraph "Physical Host Machine (AZ-A)"
         direction TB
-        NitroCard["<b>AWS Nitro Card</b><br/>(Hardware-level Virtualization)"]
-        Hypervisor["Lightweight Hypervisor"]
+        NitroCard["<b>AWS Nitro System</b><br/>Hardware Virtualization Controller"]
         
-        subgraph "EC2 Instance OS (Guest Kernel)"
+        subgraph "EC2 Guest OS (Your Server)"
             direction LR
-            RoutingTable["<b>Routing Table</b><br/>10.0.0.0/16 -> 'Local'"]
-            NetworkDriver["Virtual ENA Driver"]
-            BlockDriver["Virtual NVMe Driver"]
+            KernelRoute["<b>Kernel Routing Table</b><br/>10.0.0.0/16 -> 'Local'"]
+            ENA["Virtual Network Driver (ENA)"]
+            NVMe["Virtual Storage Driver (NVMe)"]
         end
     end
 
-    subgraph "Regional Storage Services"
-        EBS_Target[("<b>EBS Volume</b><br/>(Block Storage Rack)")]
-        EFS_Endpoint{{"<b>EFS Mount Target</b><br/>(NFS Service Interface)"}}
+    subgraph "Storage & Services"
+        EBS_Vol[("<b>EBS Volume</b><br/>Remote Block Storage")]
+        EFS_Share{{"<b>EFS Endpoint</b><br/>Regional NFS Share"}}
     end
 
-    %% Networking Logic
-    EC2_Request_Net[Packet to 10.0.2.5] --> RoutingTable
-    RoutingTable --> NetworkDriver
-    NetworkDriver -- "Sends to .1 Gateway" --> NitroCard
-    NitroCard -- "Interrogates" --> MappingService
-    MappingService -- "Encapsulates Packet" --> PhysicalBackbone
-    PhysicalBackbone -- "Tunnels to Target" --> SubnetB_EC2
+    %% Networking Trickery Flow
+    KernelRoute -- "1. Kernel sees 'Local' route" --> ENA
+    ENA -- "2. Sends to .1 Virtual Gateway" --> NitroCard
+    NitroCard -- "3. Encapsulates for Fabric" --> MappingService
+    MappingService -- "4. Tunnels through Fiber" --> RemoteTarget["Remote Instance/Service"]
 
-    %% Storage Logic
-    BlockDriver -- "SCSI/NVMe Cmds" --> NitroCard
-    NitroCard -- "Direct Tunnel (Dedicated Fabric)" --> EBS_Target
+    %% Storage Attachment Logic
+    NVMe -- "Hardware-level Cmds" --> NitroCard
+    NitroCard -- "Dedicated Storage Channel" --> EBS_Vol
     
-    EC2_Request_File[File read/write] -- "NFS Protocol (TCP/IP)" --> NetworkDriver
-    NetworkDriver -- "Standard Traffic" --> EFS_Endpoint
+    ENA -- "Network-level NFS Traffic" --> EFS_Share
 
-    %% Annotations
-    style NitroCard fill:#f96,stroke:#333,stroke-width:2px
-    style MappingService fill:#f96,stroke:#333,stroke-width:2px
-    style RoutingTable fill:#fff,stroke:#333,stroke-dasharray: 5 5
+    %% Styling for Dark/Light Mode Compatibility
+    style MappingService fill:#e67e22,stroke:#333,stroke-width:2px,color:#fff
+    style NitroCard fill:#d35400,stroke:#333,stroke-width:2px,color:#fff
+    style KernelRoute fill:#34495e,stroke:#fff,color:#fff
+    style PhysicalBackbone fill:#7f8c8d,color:#fff
