@@ -1,0 +1,9 @@
+2 hours class.
+2 hours:
+  1. shell scripting, writing a systemd service to fix a personal low memory issue on my laptop.
+  2. Testing the service with multiple memory  ranges
+45 mins:
+  1. Working on a small custom Load Balancer concept with a simple ec2 machine
+3 hours:
+  working on kubernetes:
+    1. working on a microservice style application with deployments, statefulsets, ebs volumes, oidc provider, service accounts etc.
