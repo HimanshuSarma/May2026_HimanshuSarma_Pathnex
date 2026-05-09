@@ -1,0 +1,8 @@
+2 hours class.
+5 hours:
+  complete networking refresher:
+    1. routing rules in ec2 machines.
+    2. The .1 Default Route & Local Subnet "Trickery"
+    3. Nitro Card and Hypervisor (The "Virtual-Physical" Bridge)
+    4. comparing aws Hypervisor/nitro networking layer with Physical on-prem subnets and networks.
+    5. refresher on Physical networks, local networks/subnets, connecting local subnets with Physical routers etc.
